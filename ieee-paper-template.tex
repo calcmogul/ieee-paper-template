@@ -1,0 +1,132 @@
+\documentclass[10pt,conference,compsoc]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{datetime}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\PassOptionsToPackage{hyphens}{url}
+  \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{import}
+\usepackage{listings}
+\usepackage{tabulary}
+
+\newcommand{\includecode}[2][c]{%
+  \lstinputlisting[escapechar=, style=custom#1]{#2}
+}
+
+% Load after hyperref
+\usepackage[style=super,nonumberlist,toc]{glossaries}
+\usepackage[notlof, notlot, nottoc]{tocbibind}
+\usepackage{tocloft}
+
+% Set up snippet environment
+\newcommand{\listsnippetsname}{\Large List of Snippets}
+\newlistof{snippets}{los}{\listsnippetsname}
+\cftsetindents{snippets}{\parindent}{1.5\parindent}
+\newenvironment{snippet}{
+  \renewcommand{\caption}[1]{
+    \refstepcounter{snippets}
+    \begin{center}
+      \par\noindent{\footnotesize Snippet \thesnippets. ##1}
+    \end{center}
+    \addcontentsline{los}{snippets}
+      {\protect \numberline{\thesnippets}{\ignorespaces ##1}}
+  }
+}
+{\par\noindent}
+
+\newcommand{\mtx}[1] {\bm #1}
+
+% Disable automatic indent and provide \indent command
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\lstdefinestyle{customMatlab}{
+  language=Matlab,
+  breaklines=true,
+  xleftmargin=0.125in,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{blue},
+  morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+  identifierstyle=\color{black},
+  stringstyle=\color[RGB]{170, 55, 241},
+  commentstyle=\color[RGB]{28, 172, 0},
+  showstringspaces=false,
+  emph=[1]{for,end,break},emphstyle=[1]\color{red},
+}
+
+\lstdefinestyle{customcpp}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  xleftmargin=0.125in,
+  language=C++,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color[RGB]{128, 128, 0},
+  commentstyle=\color[RGB]{0, 128, 0},
+  identifierstyle=\color{black},
+  stringstyle=\color[RGB]{0, 128, 0},
+}
+
+% Paper header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{IEEE Paper Template}
+\rhead{\thepage}
+\lfoot{}
+\rfoot{}
+\fancyfoot[C]{}  % remove normal page numbers
+
+\allowdisplaybreaks
+
+\newdateformat{monthdayyeardate}{%
+  \monthname[\THEMONTH]~\THEDAY, \THEYEAR}
+
+\begin{document}
+\begin{titlepage}
+  \begin{center}
+    \vspace*{1cm}
+
+    \Huge
+    \textbf{IEEE Paper Template}
+
+    \vspace{0.5cm}
+    \LARGE
+    Subtitle
+
+    \vspace{1.5cm}
+
+    \textbf{Author}
+
+    \vspace{1.5cm}
+    \normalsize
+    Generated on \monthdayyeardate\today
+
+    \vfill
+
+    \vspace{0.8cm}
+  \end{center}
+
+  \vfill
+
+  \vspace{0.8cm}
+\end{titlepage}
+\thispagestyle{empty}  % no page number on title sheet
+
+\pagenumbering{roman}
+\renewcommand\contentsname{Table of Contents}
+\tableofcontents
+\listoffigures
+\listoftables
+\listofsnippets
+\thispagestyle{empty}  % no page number on table of contents sheet
+\clearpage
+
+\pagenumbering{arabic}
+
+\section{Section}
+
+\end{document}
