@@ -1,11 +1,19 @@
 TARGET := ieee-paper-template.pdf
 
+BIB := $(wildcard *.bib)
+SVG := $(wildcard *.svg)
+PDF_TEX := $(SVG:.svg=.pdf_tex)
+
 .PHONY: all
 all: $(TARGET)
 
 $(TARGET): $(basename $(TARGET)).tex
-	latexmk -pdf $(basename $@)
+	latexmk -interaction=nonstopmode -xelatex $(basename $@)
+
+%.pdf_tex: %.svg
+	inkscape -D -z --file=$< --export-pdf=$(basename $<).pdf --export-latex
 
 .PHONY: clean
 clean:
-	rm -f *.aux *.fdb_latexmk *.fls *.lof *.log *.los *.lot *.toc *.out *.pdf
+	latexmk -xelatex -C
+	rm -f $(TARGET)
